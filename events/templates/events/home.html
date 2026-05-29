@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CodeAlpha Events</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
+        .event-card { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Upcoming CodeAlpha Events</h1>
+    <hr>
+
+    {% for event in events %}
+        <div class="event-card">
+            <h2>{{ event.title }}</h2>
+            <p><strong>Date:</strong> {{ event.date }} | <strong>Location:</strong> {{ event.location }}</p>
+            <p>{{ event.description }}</p>
+            <form action="{% url 'register_event' event.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" style="cursor: pointer; padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px;">Register Now</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No upcoming events found. Add some in the admin dashboard!</p>
+    {% endfor %}
+
+</body>
+</html>
